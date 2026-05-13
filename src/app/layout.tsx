@@ -15,6 +15,8 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_ID || "";
+
 export const metadata: Metadata = {
   title: {
     default: "ToolBox Online — Bộ công cụ miễn phí hàng đầu",
@@ -54,13 +56,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        {/* Google AdSense — Thay YOUR_ADSENSE_ID bằng ID thật */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
+        {adsenseId && (
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseId}`}
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
+        )}
       </head>
       <body className="flex min-h-full flex-col bg-white dark:bg-gray-950">
         <Header />

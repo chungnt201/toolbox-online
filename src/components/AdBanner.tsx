@@ -1,27 +1,45 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 interface AdBannerProps {
   slot?: string;
   format?: "auto" | "rectangle" | "horizontal" | "vertical";
   className?: string;
 }
 
-export default function AdBanner({ slot = "YOUR_AD_SLOT_ID", format = "auto", className = "" }: AdBannerProps) {
+const PUBLISHER_ID = process.env.NEXT_PUBLIC_ADSENSE_ID || "";
+
+export default function AdBanner({ slot, format = "auto", className = "" }: AdBannerProps) {
+  const adRef = useRef<HTMLModElement>(null);
+  const pushed = useRef(false);
+
+  useEffect(() => {
+    if (!PUBLISHER_ID || pushed.current) return;
+    try {
+      ((window as unknown as Record<string, unknown[]>).adsbygoogle =
+        (window as unknown as Record<string, unknown[]>).adsbygoogle || []).push({});
+      pushed.current = true;
+    } catch {
+      // AdSense not loaded
+    }
+  }, []);
+
+  if (!PUBLISHER_ID) return null;
+
+  const adSlot = slot || process.env.NEXT_PUBLIC_ADSENSE_SLOT || "";
+
   return (
-    <div className={`ad-container my-6 flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 p-4 dark:border-gray-700 dark:bg-gray-900 ${className}`}>
-      <div className="text-center">
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
-          data-ad-slot={slot}
-          data-ad-format={format}
-          data-full-width-responsive="true"
-        />
-        <p className="mt-2 text-xs text-gray-400">
-          Quảng cáo — Thay thế bằng mã AdSense thật của bạn
-        </p>
-      </div>
+    <div className={`ad-container my-6 ${className}`}>
+      <ins
+        ref={adRef}
+        className="adsbygoogle"
+        style={{ display: "block" }}
+        data-ad-client={PUBLISHER_ID}
+        data-ad-slot={adSlot}
+        data-ad-format={format}
+        data-full-width-responsive="true"
+      />
     </div>
   );
 }
