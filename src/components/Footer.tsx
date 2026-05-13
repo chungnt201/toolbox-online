@@ -44,9 +44,15 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-gray-200 pt-8 dark:border-gray-800">
-          <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-            © 2026 ToolBox.online — Công cụ miễn phí cho mọi người
-          </p>
+          <div className="flex flex-col items-center gap-3">
+            <div className="flex gap-4">
+              <Link href="/privacy" className="text-sm text-gray-500 hover:text-indigo-600 dark:text-gray-400">Privacy Policy</Link>
+              <Link href="/contact" className="text-sm text-gray-500 hover:text-indigo-600 dark:text-gray-400">Contact Us</Link>
+            </div>
+            <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+              © 2026 ToolBox.online — Free tools for everyone
+            </p>
+          </div>
         </div>
       </div>
     </footer>
