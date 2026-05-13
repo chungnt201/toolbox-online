@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_ID || "";
+const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_ID;
 
 export const metadata: Metadata = {
   title: {
@@ -54,8 +54,9 @@ export default function RootLayout({
     <html
       lang="vi"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <head>
+      <body className="flex min-h-full flex-col bg-white dark:bg-gray-950">
         {adsenseId && (
           <Script
             async
@@ -64,8 +65,6 @@ export default function RootLayout({
             strategy="afterInteractive"
           />
         )}
-      </head>
-      <body className="flex min-h-full flex-col bg-white dark:bg-gray-950">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

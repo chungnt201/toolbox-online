@@ -45,7 +45,7 @@ export default function Footer() {
         </div>
         <div className="mt-8 border-t border-gray-200 pt-8 dark:border-gray-800">
           <p className="text-center text-sm text-gray-500 dark:text-gray-400">
-            © {new Date().getFullYear()} ToolBox.online — Công cụ miễn phí cho mọi người
+            © 2026 ToolBox.online — Công cụ miễn phí cho mọi người
           </p>
         </div>
       </div>
